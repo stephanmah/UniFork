@@ -26,6 +26,13 @@ class AccessManagement
      $result = $db->query($queryString, $departmentCode, $roleCode)->fetchAll();
     return $result;
   }
+
+  public static function getAllUsers(){
+    $db = new db();
+    $queryString = "CALL AccessManagementGetUsers()";
+     $result = $db->query($queryString)->fetchAll();
+    return $result;
+  }
 }
 
 Class System
@@ -57,6 +64,8 @@ Class System
      $result = $db->query($queryString)->fetchAll();
     return $result;
   }
+
+
 }
 
 

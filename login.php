@@ -41,10 +41,13 @@ else {
           </div>
           <input type="hidden" name="tokenfield" value="<?php echo $_SESSION['sessiontoken']; ?>">
           <button type="submit" role="button" name="login" class="btn btn-primary btn-block">Log In</button>
-          <div>Username: jsmith - password: jsmith</div>
+          <div>Username: jsmith - password: jsmith - User</div>
+          <div>Username: sdu - password: sdu - Manager</div>
+          <div>Username: ksun - password: ksun - Administrator</div>
         </form>
       </div>
     </div>
+    
   <?php }
 ?>
 

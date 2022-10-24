@@ -57,18 +57,19 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <div class="navbar-header">
-        <a><img alt="Brand" class="navbar-brand" src="<?php echo ROOT_DIR.'assets/img/unifork.png' ?>" style="padding-top:0px; padding-bottom:0px;"></a>
-      </div>
+        <a><img alt="" class="navbar-brand" src="<?php echo ROOT_DIR.'assets/img/unifork.png' ?>" style="padding-top:0px; padding-bottom:0px;"></a>
+    </div>
+    <?php if(isLoggedIn() == 1) { ?> 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
-      <?php if(isLoggedIn() == 1) { ?> 
+      
             <?php foreach($user->AccessArray as $access){ ?>
               <li <?php activeTab("$access->Page")?> >
                 <a class="nav-item" aria-current="page" data-menu="<?php echo $access->AppDesc . ' - ' . $access->AccessLevelDesc ?>" 
                 href="<?php echo ROOT_DIR.'' . $access->Page . '';?>"><?php echo $access->AppDesc;?>-<?php  echo $access->AccessLevelDesc;?></a>
               </li>
             <?php } ?>
-      <?php } ?>
+      
       </ul>
       <div>
         <ul class="navbar-nav ms-auto">
@@ -86,6 +87,7 @@
         </ul>
       </div>
     </div>
+    <?php } ?>
   </div>
 </nav>
 
