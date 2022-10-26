@@ -21,42 +21,45 @@ $resultRole = System::getRole();
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-       
-      <div>
-        <table id="tblAM">
-            <thead>
-                <th>Role</th>
-                <th>Department</th>
-                <th>Access Level</th>
-                <th>Application</th>
-            </thead>
-            <tbody>
-                <?php if(!empty($resultAM)) { ?>
-                    <?php foreach($resultAM as $row) { ?>
-                        <tr>
-                            <td><?php echo $row['RoleDesc']; ?></td>
-                            <td><?php echo $row['DepartmentDesc']; ?></td>
-                            <td><?php echo $row['AccessLevelDesc']; ?></td>
-                            <td><?php echo $row['AppDesc']; ?></td>
-                        </tr>
-                    <?php } ?>
-                <?php } ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Role Description</th>
-                    <th>Department Description</th>
-                    <th>Access Level Description</th>
-                    <th>App Description</th>
-                </tr>
-            </tfoot>
-        </table>
-        </div>
+        <div class="accordion-body">
+        
+            <div>
+                    <table id="tblAM">
+                        <thead>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Access Level</th>
+                            <th>Application</th>
+                        </thead>
+                        <tbody>
+                            <?php if(!empty($resultAM)) { ?>
+                                <?php foreach($resultAM as $row) { ?>
+                                    <tr>
+                                        <td><?php echo $row['RoleDesc']; ?></td>
+                                        <td><?php echo $row['DepartmentDesc']; ?></td>
+                                        <td><?php echo $row['AccessLevelDesc']; ?></td>
+                                        <td><?php echo $row['AppDesc']; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Role Description</th>
+                                <th>Department Description</th>
+                                <th>Access Level Description</th>
+                                <th>App Description</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-      </div>
+            </div>
+            <div style="margin: 25px;">
+                <button type="button" id="addBtn" class="btn btn-primary">+ Add Access</button>
+            </div>
+        </div>
     </div>
-  </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -139,8 +142,13 @@ $resultRole = System::getRole();
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+
 <script>
 jQuery(document).ready(function($) {
+    $('#addBtn').click(function() {
+        alert("Future task: add access.");
+    });
+
     $('#tblDept').DataTable();
     $('#tblAMUsers').DataTable({
         initComplete: function () {
@@ -165,6 +173,20 @@ jQuery(document).ready(function($) {
                 });
         },
     });
+
+    var tableU = $('#tblAMUsers').DataTable();
+ 
+    $('#tblAMUsers tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            tableU.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
+
+
     $('#tblAM').DataTable({
         initComplete: function () {
             this.api()
@@ -188,6 +210,22 @@ jQuery(document).ready(function($) {
                 });
         },
     });
+
+    var tableAM = $('#tblAM').DataTable();
+ 
+    $('#tblAM tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            tableAM.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
+    // $('#button').click(function () {
+    //     table.row('.selected').remove().draw(false);
+    // });
+
 } );
 </script>
 

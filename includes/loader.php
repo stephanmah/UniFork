@@ -9,12 +9,11 @@ require_once(ROOT_DIR.'includes/functions.php');
 
 
 # Check database
-checkDatabaseInstallation();
+# checkDatabaseInstallation();
 
 # Check logged user
 if (!isLoggedIn() && !preg_match('/login(.php)?/', currentPage())) {
   redirectTo(ROOT_DIR.'login.php');
 }
 
-$_SESSION['where_am_I'] = "";
 ?>

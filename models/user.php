@@ -45,73 +45,28 @@ class User {
                       INNER JOIN department
                         on department.DepartmentId = user.DepartmentId
                             where UserName = ?";
+                            
+      if($_user = $db->query($queryString, $_username)->fetchArray()){
 
-      $_user = $db->query($queryString, $_username)->fetchArray();
-      $this->UserId = $_user['UserId'];
-       $this->UserName = $_user['UserName'];
-       $this->PasswordHash = $_user['PasswordHash'];
-       $this->FirstName = $_user['FirstName'];
-       $this->LastName = $_user['LastName'];
-       $this->Email = $_user['Email'];
-       $this->RoleId = $_user['RoleId'];
-       $this->RoleCode = $_user['RoleCode'];
-       $this->RoleDesc = $_user['RoleDesc'];
-       $this->DepartmentId = $_user['DepartmentId'];
-       $this->DepartmentCode = $_user['DepartmentCode'];
-       $this->DepartmentDesc= $_user['DepartmentDesc'];
+        $this->UserId = $_user['UserId'];
+        $this->UserName = $_user['UserName'];
+        $this->PasswordHash = $_user['PasswordHash'];
+        $this->FirstName = $_user['FirstName'];
+        $this->LastName = $_user['LastName'];
+        $this->Email = $_user['Email'];
+        $this->RoleId = $_user['RoleId'];
+        $this->RoleCode = $_user['RoleCode'];
+        $this->RoleDesc = $_user['RoleDesc'];
+        $this->DepartmentId = $_user['DepartmentId'];
+        $this->DepartmentCode = $_user['DepartmentCode'];
+        $this->DepartmentDesc= $_user['DepartmentDesc'];
+        $this->getAccess();
+      }
        $db->close();
-
-       $this->getAccess();
-
-/*       $dbhost = 'localhost';
-      $dbuser = 'gtri';
-      $dbpass = 'gtri';
-      $dbname = 'giwm';
-      $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-      $sql = "SELECT UserName, Firstname, Lastname FROM user where UserName = 'jsmith'";
-      if ($result = $conn->query($sql)) {
-        $obj = $result->fetch_object();
-        $this = $obj;
-      } */
-
   }
 
   private function getAccess()
   {
-    // $a = new Access();
-    // $a->AccessId = 1;
-    // $a->AppDesc = 'Asset Management';
-    // $a->AccessLevelDesc = 'User';
-    // $a->Page = "assetmanagement";
-    // $a1 = new Access();
-    // $a1->AccessId = 2;
-    // $a1->AppDesc = 'Helpdesk Ticket';
-    // $a1->AccessLevelDesc = 'User';
-    // $a1->Page = "helpdeskticket";
-    // $a2 = new Access();
-    // $a2->AccessId = 3;
-    // $a2->AppDesc = 'Asset Management';
-    // $a2->AccessLevelDesc = 'Department';
-    // $a2->Page = "assestmanagement";
-    // $a3 = new Access();
-    // $a3->AccessId = 4;
-    // $a3->AppDesc = 'Helpdesk Ticket';
-    // $a3->AccessLevelDesc = 'Admin';
-    // $a3->Page = "helpdeskticket";
-    // $a4 = new Access();
-    // $a4->AccessId = 5;
-    // $a4->AppDesc = 'System Admin';
-    // $a4->AccessLevelDesc = 'Admin';
-    // $a4->Page = "system";
-    
-    // $array = array();
-    // $array[] =  $a;
-    // $array[] =  $a1;
-    // $array[] =  $a2;
-    // $array[] =  $a3;
-    // $array[] =  $a4;
-    
-    // $this->AccessArray = $array;
 
     $db = new db();
     $queryString = "select * from

@@ -20,7 +20,10 @@ function &authLoader() {
 
 function logIn($username, $password) {
 	$puggyConf = getConfig();
-	
+
+	if ($username == "" or $password == "" ){
+		redirectTo('login.php');
+	}
 	$user = new User($username);
 
 	if (password_verify($password, $user->PasswordHash)) {
@@ -66,26 +69,6 @@ function checkSessionToken($field_token, $session_token, $redirectUrl){
 		redirectTo(ROOT_DIR.$redirectUrl);
 	}
 }
-
-# -------------- DATABASE --------------
-
-function initDb($puggyConf){
-  return mysqli_connect($puggyConf['db_addr'], $puggyConf['db_user'], $puggyConf['db_pass'], $puggyConf['db_name']);
-}
-
-function checkDatabaseInstallation(){
-	$puggyConf = getConfig();
-	if ($puggyConf['db_reqd'] == true) {
-		$conn = initDb($puggyConf);
-		if (!$conn) {
-			redirectError('Could not connect to database. Please, try to <a href="install.php">install</a>.');
-		}
-		else {
-			mysqli_close($conn);
-		}
-	}
-}
-
 
 # -------------- UTILS --------------
 

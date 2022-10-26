@@ -1,5 +1,5 @@
 # GTRI IT Web Management (based on PHP)
-This project contains the basic structure of the GTRI IT Web Management web application based on PHP,
+This project contains the basic structure of the UniFork web application based on PHP,
 with authentication and installation of a database.
 
 
@@ -14,8 +14,6 @@ with authentication and installation of a database.
 ## Features
 * Included **Bootstrap** & **FontAwesome** (responsive design)
 * Authentication by form
-* Database initializer
-
 
 ## Requirements
 * Web-server (Apache, Nginx...)
@@ -27,7 +25,7 @@ with authentication and installation of a database.
 ## Installation
 1. Download repository in your web directory:
     ```
-    git clone https://github.com/scottduong217/GTRI-IT-Web-Management.git
+    git clone https://github.com/scottduong217/UniFork.git
     ```
 2. Go to SetupDB.doc for how to install the DB
 
@@ -36,6 +34,7 @@ with authentication and installation of a database.
 ## FAQ's
 
 ### How to use with Authentication
-1. Username: jsmith
-2. Password: jsmith
+1. Username: jsmith, Password: jsmith
+2. Username: sdu, Password: sdu
+3. Username: ksun, Password: ksun
     ```
