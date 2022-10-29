@@ -7,11 +7,75 @@ $resultAM = AccessManagement::GetAllAccess(null,null);
 $resultAMUsers = AccessManagement::GetAllUsers();
 $resultDept = System::getDepartment();
 $resultRole = System::getRole();
+ $resultAccessLevel = System::getAccessLevel();
+ $resultApp = System::getApp();
+
 ?>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
 
-<div style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue; height:100%;">
+
+<!-- Update AM Modal -->
+<div class="modal fade" id="addAMModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/examples/actions/confirmation.php" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Access Management</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-4">
+                            <input hidden value="" id=accessIdInput/>
+                            <div class="mb-3">
+                                <label class="form-label" for="roleSelect">Role:</label>
+                                <select class="form-select" aria-label="Default select example" id="roleSelect">
+                                    <option value=""></option>
+                                    <?php foreach($resultRole as $row) { ?> 
+                                        <option value="<?php echo $row['RoleId'] ?>"><?php echo $row['RoleDesc'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="departmentSelect">Department:</label>
+                                <select class="form-select" aria-label="Default select example" id="departmentSelect">
+                                    <option value=""></option>
+                                    <?php foreach($resultDept as $row) { ?> 
+                                        <option value="<?php echo $row['DepartmentId'] ?>"><?php echo $row['DepartmentDesc'] ?></option>
+                                    <?php } ?>
+                                </select>
+                                </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="accessLevelSelect">Access Level:</label>
+                                <select class="form-select" aria-label="Default select example" id="accessLevelSelect">
+                                    <option value=""></option>
+                                    <?php foreach($resultAccessLevel as $row) { ?> 
+                                        <option value="<?php echo $row['AccessLevelId'] ?>"><?php echo $row['AccessLevelDesc'] ?></option>
+                                    <?php } ?>
+                                </select>
+                                </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="appSelect">App:</label>
+                                <select class="form-select" aria-label="Default select example" id="appSelect">
+                                    <option value=""></option>
+                                    <?php foreach($resultApp as $row) { ?> 
+                                        <option value="<?php echo $row['AppId'] ?>"><?php echo $row['AppDesc'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue; ">
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
@@ -30,6 +94,8 @@ $resultRole = System::getRole();
                             <th>Department</th>
                             <th>Access Level</th>
                             <th>Application</th>
+                            <th>Access Id</th>
+                            <th></th>
                         </thead>
                         <tbody>
                             <?php if(!empty($resultAM)) { ?>
@@ -39,6 +105,11 @@ $resultRole = System::getRole();
                                         <td><?php echo $row['DepartmentDesc']; ?></td>
                                         <td><?php echo $row['AccessLevelDesc']; ?></td>
                                         <td><?php echo $row['AppDesc']; ?></td>
+                                        <td><?php echo $row['AccessId']; ?></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary updateAMBtn"  data-accessid="<?php echo $row['AccessId']; ?>">~Update</button>
+                                            <button type="button" class="btn btn-danger deleteAMBtn" data-accessid="<?php echo $row['AccessId']; ?>">-Delete</button>
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
@@ -49,6 +120,8 @@ $resultRole = System::getRole();
                                 <th>Department Description</th>
                                 <th>Access Level Description</th>
                                 <th>App Description</th>
+                                <th>Access Id</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -56,10 +129,30 @@ $resultRole = System::getRole();
 
             </div>
             <div style="margin: 25px;">
-                <button type="button" id="addBtn" class="btn btn-primary">+ Add Access</button>
+                <button type="button" id="addAMBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAMModal">+ Add Access</button>
             </div>
         </div>
     </div>
+
+<!-- Update User Modal -->
+<div class="modal fade" id="addUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            Future task.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -69,12 +162,12 @@ $resultRole = System::getRole();
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
       <div>
-            <table id="tblAMUsers">
+            <table id="tblUsers">
                 <thead>
                     <th>Name</th>
                     <th>Role</th>
                     <th>Department</th>
-
+                    <th></th>
                 </thead>
                 <tbody>
                     <?php if(!empty($resultAMUsers)) { ?>
@@ -83,6 +176,17 @@ $resultRole = System::getRole();
                                 <td><?php echo $row['Name']; ?></td>
                                 <td><?php echo $row['Role']; ?></td>
                                 <td><?php echo $row['Department']; ?></td>
+                                <td>
+                                    <?php
+                                        if ($row['UserId'] != $user->UserId) 
+                                        { ?>
+                                            <button type="button" class="btn btn-primary updateUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-accessid="<?php echo $row['UserId']; ?>">~Update</button>
+                                            <button type="button" class="btn btn-danger deleteUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-accessid="<?php echo $row['UserId']; ?>">-Delete</button>
+                                        <?php }
+                                        else { ?>
+                                            <button type="button" class="btn btn-info viewUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-accessid="<?php echo $row['UserId']; ?>">:View</button><span>  No update allowed.</span>
+                                        <?php } ?>    
+                                </td>
                             </tr>
                         <?php } ?>
                     <?php } ?>
@@ -92,12 +196,15 @@ $resultRole = System::getRole();
                     <th>Name</th>
                     <th>Role</th>
                     <th>Department</th>
+                    <th></th>
                 </tr>
             </tfoot>
             </table>
         </div>
-
       </div>
+      <div style="margin: 25px;">
+            <button type="button" id="addUserBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">+Add User</button>
+        </div>
     </div>
   </div>
 
@@ -141,16 +248,15 @@ $resultRole = System::getRole();
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <script>
 jQuery(document).ready(function($) {
-    $('#addBtn').click(function() {
-        alert("Future task: add access.");
-    });
+    
 
     $('#tblDept').DataTable();
-    $('#tblAMUsers').DataTable({
+
+    $('#tblUsers').DataTable({
         initComplete: function () {
             this.api()
                 .columns([0,1,2])
@@ -174,9 +280,9 @@ jQuery(document).ready(function($) {
         },
     });
 
-    var tableU = $('#tblAMUsers').DataTable();
+    var tableU = $('#tblUsers').DataTable();
  
-    $('#tblAMUsers tbody').on('click', 'tr', function () {
+    $('#tblUsers tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         } else {
@@ -185,9 +291,25 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $('#addUserBtn').click(function() {
+        $("#addUserModal").data("accessid", $(this).data("accessid"))
+        //alert("Future task: add access.");
+    });
+
+    $('.updateUserBtn').click(function() {
+        //alert($("#updateUserModal").data("accessid"))
+    });
 
 
+    //**********Access Management Table Begins *****************/
     $('#tblAM').DataTable({
+        columnDefs: [
+            {
+                target: 4,
+                visible: false,
+                searchable: false,
+            }
+        ],
         initComplete: function () {
             this.api()
                 .columns([0,1,2,3])
@@ -222,10 +344,15 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // $('#button').click(function () {
-    //     table.row('.selected').remove().draw(false);
-    // });
+    $('#addAMBtn').click(function() {
+        $("#addAMModal").data("accessid", $(this).data("accessid"))
+    });
 
+    $('.updateAMBtn').click(function() {
+        //$("#updateAMModal").data("accessid", $(this).data("accessid"))
+        //alert($("#updateAMModal").data("accessid"))
+    });
+    //**********Access Management Table Ends *****************/
 } );
 </script>
 

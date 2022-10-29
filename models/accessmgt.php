@@ -53,7 +53,7 @@ Class System
 
   public static function getAccessLevel(){
     $db = new db();
-    $queryString = "SELECT AccessLevelId, AccessLevelCode, AccessLevelDesc, Seq from accesslevel ordr by Seq";
+    $queryString = "SELECT AccessLevelId, AccessLevelCode, AccessLevelDesc, Seq from accesslevel order by Seq";
      $result = $db->query($queryString)->fetchAll();
     return $result;
   }

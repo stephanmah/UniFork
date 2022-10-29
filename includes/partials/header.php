@@ -76,7 +76,7 @@
           <li>
             <a  class="nav-link" href="<?php echo ROOT_DIR.'userprofile';?>" >
               <i class="fa-solid fa-user" style="font-size:30px;color:gray;vertical-align:bottom;"></i>
-              <b><span style="font-size:16px;color:gray;"> <?php echo "  " . $userName ?></span></b></i>
+              <i><b><span style="font-size:16px;color:gray;"> <?php echo "  " . $userName ?></span></b></i>
             </a>
           </li>
           <li>
@@ -92,6 +92,6 @@
 </nav>
 
 
-<div class="container" style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue; height:100%;">
+<div class="container" style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue;">
 
 
