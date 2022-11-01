@@ -1,8 +1,5 @@
 <?php
 
-//use LDAP\Result;
-
-require_once(ROOT_DIR.'includes/db.php');
 
 class AccessManagement
 {
@@ -65,9 +62,16 @@ Class System
     return $result;
   }
 
-
+  public static function getUser($userId)
+  {
+    $db = new db();
+    $queryString = "SELECT * from user where UserId = ?";
+    if($_user = $db->query($queryString, $userId)->fetchArray()){
+      return $_user;
+    } else{
+      return null;
+    }
+  }
 }
-
-
 
 ?>

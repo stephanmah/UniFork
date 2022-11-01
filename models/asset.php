@@ -2,7 +2,7 @@
 
 //use LDAP\Result;
 
-require_once(ROOT_DIR.'includes/db.php');
+
 
 Class Asset
 {
