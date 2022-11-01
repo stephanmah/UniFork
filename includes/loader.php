@@ -3,9 +3,11 @@
 session_start();
 
 # Imports and initializations
+require_once(ROOT_DIR.'models/asset.php');
 require_once(ROOT_DIR.'models/user.php');
 require_once(ROOT_DIR.'models/accessmgt.php');
 require_once(ROOT_DIR.'includes/functions.php');
+
 
 
 # Check database

@@ -136,20 +136,63 @@ $resultRole = System::getRole();
 
 <!-- Update User Modal -->
 <div class="modal fade" id="addUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-            Future task.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/examples/actions/confirmation.php" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="m-4">
+                            <input hidden value="" id=userIdInput/>
+                            <div class="mb-3">
+                                <label class="form-label" for="userNameInput">Username:</label>
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="passwordInput">Password:</label>
+                                <input type="text" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="firstNameInput">First Name:</label>
+                                <input type="text" class="form-control" placeholder="First Name" aria-label="firstName" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="lastNameInput">Last Name:</label>
+                                <input type="text" class="form-control" placeholder="Last Name" aria-label="lastName" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="emailInput">Email:</label>
+                                <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="roleSelect">Role:</label>
+                                <select class="form-select" aria-label="Default select example" id="roleSelect">
+                                    <option value=""></option>
+                                    <?php foreach($resultRole as $row) { ?> 
+                                        <option value="<?php echo $row['RoleId'] ?>"><?php echo $row['RoleDesc'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="departmentSelect">Department:</label>
+                                <select class="form-select" aria-label="Default select example" id="departmentSelect">
+                                    <option value=""></option>
+                                    <?php foreach($resultDept as $row) { ?> 
+                                        <option value="<?php echo $row['DepartmentId'] ?>"><?php echo $row['DepartmentDesc'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -180,11 +223,11 @@ $resultRole = System::getRole();
                                     <?php
                                         if ($row['UserId'] != $user->UserId) 
                                         { ?>
-                                            <button type="button" class="btn btn-primary updateUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-accessid="<?php echo $row['UserId']; ?>">~Update</button>
-                                            <button type="button" class="btn btn-danger deleteUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-accessid="<?php echo $row['UserId']; ?>">-Delete</button>
+                                            <button type="button" class="btn btn-primary updateUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-userid="<?php echo $row['UserId']; ?>">~Update</button>
+                                            <button type="button" class="btn btn-danger deleteUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-userid="<?php echo $row['UserId']; ?>">-Delete</button>
                                         <?php }
                                         else { ?>
-                                            <button type="button" class="btn btn-info viewUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-accessid="<?php echo $row['UserId']; ?>">:View</button><span>  No update allowed.</span>
+                                            <button type="button" class="btn btn-info viewUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-userid="<?php echo $row['UserId']; ?>">:View</button><span>  No update allowed.</span>
                                         <?php } ?>    
                                 </td>
                             </tr>
@@ -292,12 +335,24 @@ jQuery(document).ready(function($) {
     });
 
     $('#addUserBtn').click(function() {
-        $("#addUserModal").data("accessid", $(this).data("accessid"))
-        //alert("Future task: add access.");
+        $("#addUserModal").data("userid", $(this).data("userid"))
+        //alert("Future task: add user.");
     });
 
     $('.updateUserBtn').click(function() {
-        //alert($("#updateUserModal").data("accessid"))
+        // alert($(this).data("userid"));
+        $.ajax({
+        type: "GET",
+        url: 'models/userGet.php',
+        data: {userId: $(this).data("userid")},
+        dataType: "json",
+        success: function(responseText){
+            alert(responseText);
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
     });
 
 
