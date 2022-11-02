@@ -135,7 +135,7 @@ $resultApp = System::getApp();
         </div>
 
         <!-- Update User Modal -->
-        <div class="modal fade" id="addUserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="/examples/actions/confirmation.php" method="post">
@@ -224,10 +224,10 @@ $resultApp = System::getApp();
                                             <td>
                                                 <?php
                                                 if ($row['UserId'] != $user->UserId) { ?>
-                                                    <button type="button" class="btn btn-primary updateUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-userid="<?php echo $row['UserId']; ?>">~Update</button>
-                                                    <button type="button" class="btn btn-danger deleteUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-userid="<?php echo $row['UserId']; ?>">-Delete</button>
+                                                    <button type="button" class="btn btn-primary updateUserBtn" data-bs-toggle="modal" data-bs-target="#userModal" data-userid="<?php echo $row['UserId']; ?>">~Update</button>
+                                                    <button type="button" class="btn btn-danger deleteUserBtn" data-bs-toggle="modal" data-bs-target="#userModal" data-userid="<?php echo $row['UserId']; ?>">-Delete</button>
                                                 <?php } else { ?>
-                                                    <button type="button" class="btn btn-info viewUserBtn" data-bs-toggle="modal" data-bs-target="#addUserModal" data-userid="<?php echo $row['UserId']; ?>">:View</button><span> No update allowed.</span>
+                                                    <button type="button" class="btn btn-info viewUserBtn" data-bs-toggle="modal" data-bs-target="#userModal" data-userid="<?php echo $row['UserId']; ?>">:View</button><span> No update allowed.</span>
                                                 <?php } ?>
                                             </td>
                                         </tr>
@@ -246,7 +246,7 @@ $resultApp = System::getApp();
                     </div>
                 </div>
                 <div style="margin: 25px;">
-                    <button type="button" id="addUserBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">+Add User</button>
+                    <button type="button" id="addUserBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">+Add User</button>
                 </div>
             </div>
         </div>
@@ -345,6 +345,7 @@ $resultApp = System::getApp();
                     },
                     dataType: "json",
                     success: function(data) {
+                        $('userIdInput').val(data.result.UserId);
                         $('#userNameInput').val(data.result.UserName).attr('readonly', true);
                         $('#passwordInput').attr("hidden",true);
                         $('#passwordLabel').attr("hidden",true);
@@ -380,6 +381,7 @@ $resultApp = System::getApp();
                     },
                     dataType: "json",
                     success: function(data) {
+                        $('userIdInput').val(data.result.UserId);
                         $('#userNameInput').val(data.result.UserName);
                         $('#passwordInput').attr("hidden",true);
                         $('#passwordLabel').attr("hidden",true);
@@ -411,6 +413,7 @@ $resultApp = System::getApp();
                     },
                     dataType: "json",
                     success: function(data) {
+                        $('userIdInput').val(data.result.UserId);
                         $('#userNameInput').val(data.result.UserName).attr('readonly', true);;
                         $('#passwordInput').attr("hidden",true);
                         $('#passwordLabel').attr("hidden",true);
@@ -483,6 +486,7 @@ $resultApp = System::getApp();
         });
 
         function clearUserModal() {
+            $('userIdInput').val('');
             $('#userNameInput').val('').attr('readonly', false);
             $('#passwordInput').val('').attr('readonly', false);
             $('#passwordInput').attr("hidden",false);

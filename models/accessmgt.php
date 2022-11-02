@@ -62,6 +62,16 @@ Class System
     return $result;
   }
 
+  public static function getAccess($accessId){
+    $db = new db();
+    $queryString = "SELECT * from access where AccessId = ?";
+    if($_user = $db->query($queryString, $accessId)->fetchAll()){
+      return $_user;
+    } else{
+      return null;
+    }
+  }
+
   public static function getUser($userId)
   {
     $db = new db();

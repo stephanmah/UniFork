@@ -35,9 +35,9 @@ $resultAsset = Asset::getAsset($user->DepartmentId);
                                     echo '<td><button type="button" class="btn btn-warning updateAMBtn">Return</button></td>';
                                 } else {
                                     if ($row['Status'] == 'NotReady') {
-                                        echo '<td><button type="button" class="btn btn-primary updateAMBtn">Configure</button></td>';
+                                        echo '<td><button type="button" class="btn btn-primary updateAMBtn">Update</button></td>';
                                     } else {
-                                        echo '<td><button type="button" class="btn btn-success updateAMBtn">Configure</button></td>';
+                                        echo '<td><button type="button" class="btn btn-success updateAMBtn">Update</button></td>';
                                     }
                                 }
                                 ?>
