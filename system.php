@@ -16,12 +16,12 @@ $resultApp = System::getApp();
 
 
 <!-- Update AM Modal -->
-<div class="modal fade" id="addAMModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="AMModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/examples/actions/confirmation.php" method="post">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add Access Management</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Access Management</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -29,45 +29,49 @@ $resultApp = System::getApp();
                         <input hidden value="" id=accessIdInput />
                         <div class="mb-3">
                             <label class="form-label" for="roleSelect">Role:</label>
-                            <select class="form-select" aria-label="Default select example" id="roleSelect">
-                                <option value=""></option>
+                            <select id="roleSelect" class="form-select" aria-label="Default select example">
+                                <option value="0"></option>
                                 <?php foreach ($resultRole as $row) { ?>
                                     <option value="<?php echo $row['RoleId'] ?>"><?php echo $row['RoleDesc'] ?></option>
                                 <?php } ?>
                             </select>
+                            <input type="text" id="roleInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="departmentSelect">Department:</label>
-                            <select class="form-select" aria-label="Default select example" id="departmentSelect">
-                                <option value=""></option>
+                            <select id="departmentSelect" class="form-select" aria-label="Default select example">
+                                <option value="0"></option>
                                 <?php foreach ($resultDept as $row) { ?>
                                     <option value="<?php echo $row['DepartmentId'] ?>"><?php echo $row['DepartmentDesc'] ?></option>
                                 <?php } ?>
                             </select>
+                            <input type="text" id="departmentInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="accessLevelSelect">Access Level:</label>
-                            <select class="form-select" aria-label="Default select example" id="accessLevelSelect">
-                                <option value=""></option>
+                            <select id="accessLevelSelect" class="form-select" aria-label="Default select example">
+                                <option value="0"></option>
                                 <?php foreach ($resultAccessLevel as $row) { ?>
                                     <option value="<?php echo $row['AccessLevelId'] ?>"><?php echo $row['AccessLevelDesc'] ?></option>
                                 <?php } ?>
                             </select>
+                            <input type="text" id="accessLevelInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="appSelect">App:</label>
-                            <select class="form-select" aria-label="Default select example" id="appSelect">
-                                <option value=""></option>
+                            <select id="appSelect" class="form-select" aria-label="Default select example">
+                                <option value="0"></option>
                                 <?php foreach ($resultApp as $row) { ?>
                                     <option value="<?php echo $row['AppId'] ?>"><?php echo $row['AppDesc'] ?></option>
                                 <?php } ?>
                             </select>
+                            <input type="text" id="appInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-info">Future task: CRUD</button>
                 </div>
             </form>
         </div>
@@ -107,8 +111,8 @@ $resultApp = System::getApp();
                                             <td><?php echo $row['AppDesc']; ?></td>
                                             <td><?php echo $row['AccessId']; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary updateAMBtn" data-accessid="<?php echo $row['AccessId']; ?>">~Update</button>
-                                                <button type="button" class="btn btn-danger deleteAMBtn" data-accessid="<?php echo $row['AccessId']; ?>">-Delete</button>
+                                                <button type="button" class="btn btn-primary updateAMBtn" data-bs-toggle="modal" data-bs-target="#AMModal" data-accessid="<?php echo $row['AccessId']; ?>">~Update</button>
+                                                <button type="button" class="btn btn-danger deleteAMBtn" data-bs-toggle="modal" data-bs-target="#AMModal" data-accessid="<?php echo $row['AccessId']; ?>">-Delete</button>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -129,7 +133,7 @@ $resultApp = System::getApp();
 
                 </div>
                 <div style="margin: 25px;">
-                    <button type="button" id="addAMBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAMModal">+ Add Access</button>
+                    <button type="button" id="addAMBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AMModal">+ Add Access</button>
                 </div>
             </div>
         </div>
@@ -184,7 +188,7 @@ $resultApp = System::getApp();
                                             <option value="<?php echo $row['DepartmentId'] ?>"><?php echo $row['DepartmentDesc'] ?></option>
                                         <?php } ?>
                                     </select>
-                                    <input type="text" id="DepartmentInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                    <input type="text" id="departmentInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </div>
@@ -355,7 +359,7 @@ $resultApp = System::getApp();
                         $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
                         $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
                         $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
-                        $('#DepartmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', true);
                         
                     },
@@ -394,7 +398,7 @@ $resultApp = System::getApp();
                         $('#DepartmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', false);
                         $('#roleInput').attr("hidden",true);
-                        $('#DepartmentInput').attr("hidden",true);
+                        $('#departmentInput').attr("hidden",true);
                     },
                     error: function(request, status, error) {
                         alert(request.responseText);
@@ -423,7 +427,7 @@ $resultApp = System::getApp();
                         $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
                         $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
                         $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
-                        $('#DepartmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', true);
                     },
                     error: function(request, status, error) {
@@ -475,12 +479,61 @@ $resultApp = System::getApp();
             });
 
             $('#addAMBtn').click(function() {
-                $("#addAMModal").data("accessid", $(this).data("accessid"))
+                clearAMModal();
             });
 
             $('.updateAMBtn').click(function() {
-                //$("#updateAMModal").data("accessid", $(this).data("accessid"))
-                //alert($("#updateAMModal").data("accessid"))
+                clearAMModal();
+                $.ajax({
+                    type: "GET",
+                    url: 'models/accessGet.php',
+                    data: {
+                        accessId: $(this).data("accessid")
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
+                        $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
+                        $('#accessLevelSelect option[value="' + data.result.AccessLevelId + '"]').attr('selected', 'selected');
+                        $('#appSelect option[value="' + data.result.AppId + '"]').attr('selected', 'selected');
+                        $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr("hidden",true);;
+                        $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr("hidden",true);;
+                        $('#accessLevelInput').val($('#accessLevelSelect option:selected').text()).attr('readonly', true).attr("hidden",true);;
+                        $('#appInput').val($('#appSelect option:selected').text()).attr('readonly', true).attr("hidden",true);;
+                        $('select').attr('hidden', false);
+                    },
+                    error: function(request, status, error) {
+                        alert(request.responseText);
+                    }
+                });
+
+            });
+
+            $('.deleteAMBtn').click(function() {
+                clearAMModal();
+                $.ajax({
+                    type: "GET",
+                    url: 'models/accessGet.php',
+                    data: {
+                        accessId: $(this).data("accessid")
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
+                        $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
+                        $('#accessLevelSelect option[value="' + data.result.AccessLevelId + '"]').attr('selected', 'selected');
+                        $('#appSelect option[value="' + data.result.AppId + '"]').attr('selected', 'selected');
+                        $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr("hidden",false);;
+                        $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr("hidden",false);;
+                        $('#accessLevelInput').val($('#accessLevelSelect option:selected').text()).attr('readonly', true).attr("hidden",false);;
+                        $('#appInput').val($('#appSelect option:selected').text()).attr('readonly', true).attr("hidden",false);;
+                        $('select').attr('hidden', true);
+                    },
+                    error: function(request, status, error) {
+                        alert(request.responseText);
+                    }
+                });
+
             });
             //**********Access Management Table Ends *****************/
         });
@@ -497,7 +550,17 @@ $resultApp = System::getApp();
             $('option').removeAttr('selected');
             $('select').attr('hidden', false);
             $('#roleInput').val('').attr('hidden', true);
-            $('#DepartmentInput').val('').attr('hidden', true);
+            $('#departmentInput').val('').attr('hidden', true);
+        }
+
+        function clearAMModal() {
+            $('accessIdInput').val('');
+            $('option').removeAttr('selected');
+            $('select').attr('hidden', false);
+            $('#roleInput').val('').attr('hidden', true);
+            $('#departmentInput').val('').attr('hidden', true);
+            $('#accessLevelInput').val('').attr('hidden', true);
+            $('#appInput').val('').attr('hidden', true);
         }
     </script>
 

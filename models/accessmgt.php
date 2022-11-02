@@ -65,8 +65,8 @@ Class System
   public static function getAccess($accessId){
     $db = new db();
     $queryString = "SELECT * from access where AccessId = ?";
-    if($_user = $db->query($queryString, $accessId)->fetchAll()){
-      return $_user;
+    if($_access = $db->query($queryString, $accessId)->fetchArray()){
+      return $_access;
     } else{
       return null;
     }

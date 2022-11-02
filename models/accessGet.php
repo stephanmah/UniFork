@@ -14,6 +14,7 @@ if ($result != null){
     $data['status'] = 'err';
     $data['result'] = '';
 }
+
 echo json_encode($data);
 
 ?>
