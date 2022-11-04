@@ -7,27 +7,35 @@ with authentication and installation of a database.
  1. [Features](#features)
  2. [Requirements](#requirements)
  3. [Installation](#installation)
- 4. [FAQs](#faqs)
-  4.1 [How to use with Authentication]
+ 4. [License](#license)
+ 5. [FAQs](#faqs)
+  5.1 [How to use with Authentication]
 
 
 ## Features
 * Included **Bootstrap** & **FontAwesome** (responsive design)
-* Authentication by form
+* Included **jQuery** & **PHP**
+* Included **Bcryt hash** & **session management**
+* Authentication by page
+* Access Management pace
+* User profile page
+* Asset management page
 
 ## Requirements
 * Web-server (Apache, Nginx...)
-* PHP
+* PHP General Public License (see LICENSE folder)
 * Mysql (in case of using DB)
     * php_mysql module (in case of using DB)
 
+## License
+* GNU
 
 ## Installation
 1. Download repository in your web directory:
     ```
     git clone https://github.com/scottduong217/UniFork.git
     ```
-2. Go to SetupDB.doc for how to install the DB
+2. Go to INSTALL folder for how to setup project and install DB
 
 
 
