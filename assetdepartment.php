@@ -9,7 +9,7 @@ $resultAsset = Asset::getAsset($user->DepartmentId);
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
 
-<div style="height:100%; background-color:whitesmoke; padding:10px;">
+<div background-color:whitesmoke; padding:10px;">
     <h3 style="text-align:center;"><?php echo $user->DepartmentDesc . ' Department Asset Management' ?></h3>
     <div>
         <table id="tblAsset">

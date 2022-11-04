@@ -71,7 +71,9 @@ $resultApp = System::getApp();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-info">Future task: CRUD</button>
+                    <button type="button" id="accessAddBtn" class="btn btn-primary  accessMaintain" hidden>+Add</button>
+                    <button type="button" id="accessUpdateBtn" class="btn btn-warning  accessMaintain" hidden>~Update</button>
+                    <button type="button" id="accessDeleteBtn" class="btn btn-danger  accessMaintain" hidden>~Delete</button>
                 </div>
             </form>
         </div>
@@ -81,14 +83,14 @@ $resultApp = System::getApp();
 
 <div style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue; ">
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion" id="accordionAM">
         <div class="accordion-item">
             <h2 class="accordion-header" id="AccessManagement">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     <h5>Access Management Setting</h5>
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionAM">
                 <div class="accordion-body">
 
                     <div>
@@ -194,7 +196,9 @@ $resultApp = System::getApp();
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-info">Future task: CRUD</button>
+                            <button type="button" id="userAddBtn" class="btn btn-primary userMaintain" hidden>+Add</button>
+                            <button type="button" id="userUpdateBtn" class="btn btn-warning userMaintain" hidden>~Update</button>
+                            <button type="button" id="userDeleteBtn" class="btn btn-danger userMaintain" hidden>~Delete</button>
                         </div>
                     </form>
                 </div>
@@ -208,7 +212,7 @@ $resultApp = System::getApp();
                     <h5>Users</h5>
                 </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionAM">
                 <div class="accordion-body">
                     <div>
                         <table id="tblUsers">
@@ -254,41 +258,6 @@ $resultApp = System::getApp();
                 </div>
             </div>
         </div>
-
-        <!-- <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-      <h5>System Tables</h5>
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-      <div>
-            <h6>Department Table</h6>
-            <table id="tblDept">
-                <thead>
-                    <th>Department Id</th>
-                    <th>Department Code</th>
-                    <th>Department Description</th>
-
-                </thead>
-                <tbody>
-                    <?php if (!empty($resultDept)) { ?>
-                        <?php foreach ($resultDept as $row) { ?>
-                            <tr>
-                                <td><?php echo $row['DepartmentId']; ?></td>
-                                <td><?php echo $row['DepartmentCode']; ?></td>
-                                <td><?php echo $row['DepartmentDesc']; ?></td>
-                            </tr>
-                        <?php } ?>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-
-      </div>
-    </div>
-  </div> -->
     </div>
 
 
@@ -371,6 +340,7 @@ $resultApp = System::getApp();
 
             $('#addUserBtn').click(function() {
                 clearUserModal();
+                $('#userAddBtn').attr('hidden',false);
                 //alert($(this).data("userid"));
             });
 
@@ -399,6 +369,7 @@ $resultApp = System::getApp();
                         $('select').attr('hidden', false);
                         $('#roleInput').attr("hidden",true);
                         $('#departmentInput').attr("hidden",true);
+                        $('#userUpdateBtn').attr('hidden',false);
                     },
                     error: function(request, status, error) {
                         alert(request.responseText);
@@ -429,6 +400,7 @@ $resultApp = System::getApp();
                         $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', true);
+                        $('#userDeleteBtn').attr('hidden',false);
                     },
                     error: function(request, status, error) {
                         alert(request.responseText);
@@ -480,6 +452,7 @@ $resultApp = System::getApp();
 
             $('#addAMBtn').click(function() {
                 clearAMModal();
+                $('#accessAddBtn').attr('hidden',false);
             });
 
             $('.updateAMBtn').click(function() {
@@ -501,6 +474,7 @@ $resultApp = System::getApp();
                         $('#accessLevelInput').val($('#accessLevelSelect option:selected').text()).attr('readonly', true).attr("hidden",true);;
                         $('#appInput').val($('#appSelect option:selected').text()).attr('readonly', true).attr("hidden",true);;
                         $('select').attr('hidden', false);
+                        $('#accessUpdateBtn').attr('hidden',false);
                     },
                     error: function(request, status, error) {
                         alert(request.responseText);
@@ -528,6 +502,7 @@ $resultApp = System::getApp();
                         $('#accessLevelInput').val($('#accessLevelSelect option:selected').text()).attr('readonly', true).attr("hidden",false);;
                         $('#appInput').val($('#appSelect option:selected').text()).attr('readonly', true).attr("hidden",false);;
                         $('select').attr('hidden', true);
+                        $('#accessDeleteBtn').attr('hidden',false);
                     },
                     error: function(request, status, error) {
                         alert(request.responseText);
@@ -551,6 +526,7 @@ $resultApp = System::getApp();
             $('select').attr('hidden', false);
             $('#roleInput').val('').attr('hidden', true);
             $('#departmentInput').val('').attr('hidden', true);
+            $('.userMaintain').attr('hidden', true);
         }
 
         function clearAMModal() {
@@ -561,6 +537,7 @@ $resultApp = System::getApp();
             $('#departmentInput').val('').attr('hidden', true);
             $('#accessLevelInput').val('').attr('hidden', true);
             $('#appInput').val('').attr('hidden', true);
+            $('.accessMaintain').attr('hidden', true);
         }
     </script>
 
