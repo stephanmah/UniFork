@@ -6,7 +6,7 @@ require_once(ROOT_DIR.'includes/partials/header.php');
 ?>
 
 
-<div style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue; height:100%;">
+<div style="border: 1px solid lightgrey; padding: 10px; background-color:aliceblue;">
 <h3 style="text-align:center;">My Profile</h3>
 <form class="form-horizontal">
   <div class="form-group mb-3">
