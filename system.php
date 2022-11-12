@@ -21,7 +21,7 @@ $resultApp = System::getApp();
         <div class="modal-content">
             <form action="/examples/actions/confirmation.php" method="post">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Access Management</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Application Security Policy</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -87,7 +87,7 @@ $resultApp = System::getApp();
         <div class="accordion-item">
             <h2 class="accordion-header" id="AccessManagement">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <h5>Access Management Setting</h5>
+                    <h5>Application Security Policy</h5>
                 </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionAM">
@@ -146,7 +146,7 @@ $resultApp = System::getApp();
                 <div class="modal-content">
                     <form action="/examples/actions/confirmation.php" method="post">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">User</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">User Profile</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -209,7 +209,7 @@ $resultApp = System::getApp();
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <h5>Users</h5>
+                    <h5>User Profile</h5>
                 </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionAM">
