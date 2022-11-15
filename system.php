@@ -135,7 +135,7 @@ $resultApp = System::getApp();
 
                 </div>
                 <div style="margin: 25px;">
-                    <button type="button" id="addAMBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AMModal">+ Add Access</button>
+                    <button type="button" id="addAMBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AMModal">+ Add Policy</button>
                 </div>
             </div>
         </div>
@@ -180,7 +180,7 @@ $resultApp = System::getApp();
                                             <option value="<?php echo $row['RoleId'] ?>"><?php echo $row['RoleDesc'] ?></option>
                                         <?php } ?>
                                     </select>
-                                    <input type="text" id="roleInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                    <input type="text" id="roleUserInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="departmentSelect">Department:</label>
@@ -190,7 +190,7 @@ $resultApp = System::getApp();
                                             <option value="<?php echo $row['DepartmentId'] ?>"><?php echo $row['DepartmentDesc'] ?></option>
                                         <?php } ?>
                                     </select>
-                                    <input type="text" id="departmentInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                                    <input type="text" id="departmentUserInput" hidden readonly class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </div>
@@ -327,8 +327,8 @@ $resultApp = System::getApp();
                         $('#emailInput').val(data.result.Email).attr('readonly', true);
                         $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
                         $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
-                        $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
-                        $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#roleUserInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#departmentUserInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', true);
                         
                     },
@@ -364,11 +364,11 @@ $resultApp = System::getApp();
                         $('#emailInput').val(data.result.Email);
                         $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
                         $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
-                        $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
-                        $('#DepartmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#roleUserInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#DepartmentUserInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', false);
-                        $('#roleInput').attr("hidden",true);
-                        $('#departmentInput').attr("hidden",true);
+                        $('#roleUserInput').attr("hidden",true);
+                        $('#departmentUserInput').attr("hidden",true);
                         $('#userUpdateBtn').attr('hidden',false);
                     },
                     error: function(request, status, error) {
@@ -397,8 +397,8 @@ $resultApp = System::getApp();
                         $('#emailInput').val(data.result.Email).attr('readonly', true);;
                         $('#roleSelect option[value="' + data.result.RoleId + '"]').attr('selected', 'selected');
                         $('#departmentSelect option[value="' + data.result.DepartmentId + '"]').attr('selected', 'selected');
-                        $('#roleInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
-                        $('#departmentInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#roleUserInput').val($('#roleSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
+                        $('#departmentUserInput').val($('#departmentSelect option:selected').text()).attr('readonly', true).attr('hidden', false);
                         $('select').attr('hidden', true);
                         $('#userDeleteBtn').attr('hidden',false);
                     },
@@ -524,8 +524,8 @@ $resultApp = System::getApp();
             $('#emailInput').val('').attr('readonly', false);;
             $('option').removeAttr('selected');
             $('select').attr('hidden', false);
-            $('#roleInput').val('').attr('hidden', true);
-            $('#departmentInput').val('').attr('hidden', true);
+            $('#roleUserInput').val('').attr('hidden', true);
+            $('#departmentUserInput').val('').attr('hidden', true);
             $('.userMaintain').attr('hidden', true);
         }
 
