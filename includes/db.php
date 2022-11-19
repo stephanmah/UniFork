@@ -14,8 +14,8 @@ class db {
 
 	public function __construct() {
         $dbhost = 'localhost';
-        $dbuser = 'gtri';
-        $dbpass = 'gtri';
+        $dbuser = 'go1';
+        $dbpass = 'go1';
         $dbname = 'giwm';
 		$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 		if ($this->connection->connect_error) {
